@@ -39,16 +39,16 @@ export default function App() {
   const [attemptingExternal, setAttemptingExternal] = useState(null); // slot
   const [showSettings, setShowSettings] = useState(false);
   const [isMidnight, setIsMidnight] = useState(() => {
-    return localStorage.getItem('dsa_theme') === 'midnight';
+    return localStorage.getItem('sql_theme') === 'midnight' || localStorage.getItem('dsa_theme') === 'midnight';
   });
 
   useEffect(() => {
     if (isMidnight) {
       document.documentElement.classList.add('midnight');
-      localStorage.setItem('dsa_theme', 'midnight');
+      localStorage.setItem('sql_theme', 'midnight');
     } else {
       document.documentElement.classList.remove('midnight');
-      localStorage.setItem('dsa_theme', 'dark');
+      localStorage.setItem('sql_theme', 'dark');
     }
   }, [isMidnight]);
 
@@ -167,7 +167,7 @@ export default function App() {
         {loading && !practiceSession ? (
           <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
-            <p className="text-sm font-semibold text-slate-400">Loading DSA Manager Workspace...</p>
+            <p className="text-sm font-semibold text-slate-400">Loading SQL Manager Workspace...</p>
           </div>
         ) : (
           <>
@@ -219,7 +219,7 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-white/10 py-6 text-center text-xs text-slate-400 backdrop-blur-md bg-black/20">
         <p className="flex items-center justify-center space-x-2">
-          <span>Personal DSA Practice Manager</span>
+          <span>Personal SQL Practice Manager</span>
           <span>•</span>
           <span>Adaptive SRS & Generalization Tracker</span>
         </p>

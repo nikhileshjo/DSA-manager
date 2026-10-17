@@ -202,7 +202,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                 <label className="text-[11px] text-slate-400 font-semibold block mb-1">Book Name</label>
                 <input
                   type="text"
-                  placeholder="e.g. Cracking the Coding Interview"
+                  placeholder="e.g. SQL Queries for Mere Mortals"
                   value={bookName}
                   onChange={(e) => setBookName(e.target.value)}
                   className="w-full px-2.5 py-1.5 rounded-lg mac-input text-xs text-white placeholder-slate-500"

@@ -1,7 +1,7 @@
 {
-  "name": "dsa-manager",
+  "name": "sql-manager",
   "version": "1.0.0",
-  "description": "Personal DSA Practice Management Application with SRS & Adaptive Daily Capacity",
+  "description": "Personal SQL Practice Management Application with SRS & Adaptive Daily Capacity",
   "main": "server/index.js",
   "type": "module",
   "scripts": {

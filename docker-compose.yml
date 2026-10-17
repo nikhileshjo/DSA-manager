@@ -3,17 +3,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dsa-manager-app
+    container_name: sql-manager-app
     ports:
-      - "3000:3000"
+      - "3001:3001"
     environment:
-      - PORT=3000
+      - PORT=3001
       - NODE_ENV=production
-      - DATABASE_PATH=/app/data/dsa_manager.db
+      - DATABASE_PATH=/app/data/sql_manager.db
     volumes:
-      - dsa_data:/app/data
+      - sql_data:/app/data
     restart: unless-stopped
 
 volumes:
-  dsa_data:
+  sql_data:
     driver: local

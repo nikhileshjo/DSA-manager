@@ -33,10 +33,10 @@ COPY --from=builder /app/index.html ./
 # Create data directory for persistent SQLite database
 RUN mkdir -p /app/data
 
-ENV PORT=3000
+ENV PORT=3001
 ENV NODE_ENV=production
-ENV DATABASE_PATH=/app/data/dsa_manager.db
+ENV DATABASE_PATH=/app/data/sql_manager.db
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["npm", "start"]

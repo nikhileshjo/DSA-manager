@@ -137,7 +137,7 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
               <label className="text-xs font-bold text-slate-300 block mb-1">Attempt Notes / Key Takeaways</label>
               <input
                 type="text"
-                placeholder="e.g. Practiced sliding window pattern on external problem"
+                placeholder="e.g. Practiced window functions or CTEs on external problem"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"

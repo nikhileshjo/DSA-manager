@@ -4,6 +4,7 @@
 *.db-wal
 *.db-shm
 dsa_manager.db
+sql_manager.db
 
 # Dependencies
 node_modules/

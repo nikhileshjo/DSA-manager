@@ -1,6 +1,6 @@
 # User Guide
 
-This guide walks you through using the Personal DSA Practice Tracker step-by-step.
+This guide walks you through using the Personal SQL Practice Tracker step-by-step.
 
 ---
 
@@ -8,11 +8,11 @@ This guide walks you through using the Personal DSA Practice Tracker step-by-ste
 
 1. Click the green **"+ Add Problem"** button in the navbar.
 2. Fill in the problem details:
-   - **Title**: e.g., `Binary Tree Zigzag Level Order Traversal`
+   - **Title**: e.g., `Department Top Three Salaries`
    - **Difficulty**: Choose `Easy`, `Medium`, or `Hard` (this represents how difficult *you* feel the problem is).
-   - **Source Type**: Select `LeetCode`, `Codeforces`, `HackerRank`, `Book`, or `URL`.
+   - **Source Type**: Select `LeetCode`, `HackerRank`, `Book`, or `URL`.
    - **Source Details**: Provide URL or Book details (Name, Page, Problem #).
-3. **Select or Add Tags**: Click the tag input box to pick from existing database tags (e.g. `Array`, `Heap`, `Dynamic Programming`). If your desired tag does not exist, type its name and click `+ Add "[tag_name]" as a new tag`.
+3. **Select or Add Tags**: Click the tag input box to pick from existing database tags (e.g. `JOINs`, `Window Functions`, `Aggregate Functions`, `CTE`). If your desired tag does not exist, type its name and click `+ Add "[tag_name]" as a new tag`.
 4. Click **"Create Problem"**.
 
 > **Duplicate Problem Alert**: If you submit a problem with a URL, Book reference, or Title that already exists in your database, an alert banner will notify you. You can click *"View Existing Problem"* to see the original problem, or *"Add Anyway"* if you explicitly want to create another entry.

@@ -1,6 +1,6 @@
 # Getting Started Guide
 
-This guide explains how to set up, run, test, and manage the Personal DSA Practice Manager application using Docker.
+This guide explains how to set up, run, test, and manage the Personal SQL Practice Manager application using Docker.
 
 ---
 
@@ -18,7 +18,7 @@ Required on host machine:
 
 ### Step A: Clone / Navigate to Workspace
 ```bash
-cd DSA-manager
+cd SQL-Manager
 ```
 
 ### Step B: Build Docker Image
@@ -34,10 +34,10 @@ docker compose up
 ```
 
 Once started, the server will output:
-`DSA Practice Tracker server running on port 3000`
+`SQL Practice Tracker server running on port 3001`
 
 Access the web interface at:
-**`http://localhost:3000`** (or `http://127.0.0.1:3000`)
+**`http://localhost:3001`** (or `http://127.0.0.1:3001`)
 
 To run in detached background mode:
 ```bash
@@ -64,13 +64,13 @@ Expected output:
 
 ## 4. Database Location & Data Persistence
 
-The application uses an embedded **SQLite** database (`dsa_manager.db`).
+The application uses an embedded **SQLite** database (`sql_manager.db`).
 
-- **Inside Container Path**: `/app/data/dsa_manager.db`
-- **Docker Volume Name**: `dsa_data` (mapped in `docker-compose.yml`)
+- **Inside Container Path**: `/app/data/sql_manager.db`
+- **Docker Volume Name**: `sql_data` (mapped in `docker-compose.yml`)
 
 ### How Data Persists
-Because the database file is stored inside the named Docker volume `dsa_data`, your problems, attempt histories, solution links, and settings **persist permanently across container restarts, rebuilds, and updates**.
+Because the database file is stored inside the named Docker volume `sql_data`, your problems, attempt histories, solution links, and settings **persist permanently across container restarts, rebuilds, and updates**.
 
 ### Resetting / Clearing Data (Optional)
 If you ever want to completely wipe the database and start fresh:

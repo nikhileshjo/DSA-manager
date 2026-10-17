@@ -25,7 +25,7 @@ This document describes the software architecture, database schema, domain modul
                              ▼
               ┌──────────────────────────────┐
               │     SQLite Database          │
-              │  (/app/data/dsa_manager.db)  │
+              │  (/app/data/sql_manager.db)  │
               └──────────────────────────────┘
 ```
 
@@ -147,4 +147,4 @@ All business logic is isolated into pure, independently testable modules:
 - Multi-stage `Dockerfile`:
   - `builder`: Compiles native SQLite bindings (`better-sqlite3`) & builds Vite React bundle.
   - `runner`: Lightweight production image with SQLite runtime and static assets.
-- Named Volume `dsa_data` mounted at `/app/data/` for permanent database storage.
+- Named Volume `sql_data` mounted at `/app/data/` for permanent database storage.

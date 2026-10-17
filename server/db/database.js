@@ -10,7 +10,7 @@ export function getDb(dbPathOverride = null) {
     return dbInstance;
   }
 
-  const dbPath = dbPathOverride || process.env.DATABASE_PATH || path.resolve(process.cwd(), 'dsa_manager.db');
+  const dbPath = dbPathOverride || process.env.DATABASE_PATH || path.resolve(process.cwd(), 'sql_manager.db');
   
   // Ensure directory exists if path includes subfolder
   const dir = path.dirname(dbPath);
@@ -39,14 +39,15 @@ export function getDb(dbPathOverride = null) {
     db.prepare("INSERT INTO settings (key, value) VALUES ('daily_capacity', '5')").run();
   }
 
-  // Seed standard DSA tags if tags table is empty
+  // Seed standard SQL tags if tags table is empty
   const tagCount = db.prepare("SELECT COUNT(*) as count FROM tags").get().count;
   if (tagCount === 0) {
     const defaultTags = [
-      'Array', 'String', 'Hash Map', 'Stack', 'Queue', 'Heap',
-      'Priority Queue', 'Binary Tree', 'BST', 'Graph', 'BFS', 'DFS',
-      'Dynamic Programming', 'Greedy', 'Binary Search', 'Two Pointers',
-      'Sliding Window', 'Recursion', 'Backtracking'
+      'SELECT & Filtering', 'JOINs', 'LEFT JOIN', 'INNER JOIN', 'Self Join',
+      'Aggregate Functions', 'GROUP BY & HAVING', 'Subqueries', 'Correlated Subqueries',
+      'Common Table Expressions (CTE)', 'Window Functions', 'RANK & DENSE_RANK',
+      'ROW_NUMBER', 'LEAD & LAG', 'CASE WHEN', 'UNION & UNION ALL',
+      'Date & Time Functions', 'String Manipulation', 'Indexing & Performance'
     ];
     const insertTag = db.prepare("INSERT OR IGNORE INTO tags (name) VALUES (?)");
     const seedTx = db.transaction(() => {
