@@ -1,138 +1,500 @@
+@import "tailwindcss";
+
 :root {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  color-scheme: dark !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  color-scheme: dark !important;
+  background-color: #050814;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #0b0f19;
+  /* Deep macOS Dark Mode ambient aurora wallpaper gradient */
+  background-image: 
+    radial-gradient(ellipse at 15% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 15%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 85%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(244, 63, 94, 0.06) 0%, transparent 45%);
+  background-attachment: fixed;
   color: #f1f5f9;
   min-height: 100vh;
 }
 
-/* Custom Scrollbar */
+/* Midnight OLED Dark Mode variation */
+html.midnight body, body.midnight {
+  background-color: #000000 !important;
+  background-image: 
+    radial-gradient(ellipse at 15% 10%, rgba(79, 70, 229, 0.09) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 15%, rgba(147, 51, 234, 0.09) 0%, transparent 45%);
+}
+
+/* Strict Dark Mode Form Inputs and Options */
+select, option, input, textarea {
+  color-scheme: dark !important;
+}
+
+select option {
+  background-color: #0b1120 !important;
+  color: #f8fafc !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #f8fafc !important;
+  -webkit-box-shadow: 0 0 0px 1000px #090e1c inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Custom Scrollbar - Mac style slim translucent */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(255, 255, 255, 0.32);
 }
 
 /* Typography Headings */
 h1, h2, h3, h4, .font-heading {
-  font-family: 'Outfit', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Outfit", "Inter", sans-serif;
+  letter-spacing: -0.02em;
 }
 
 code, pre {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', "SF Mono", Menlo, monospace;
 }
 
-/* Glassmorphism Cards */
+/* =========================================================
+   macOS Frosted Glass & Translucent Panels
+   ========================================================= */
+.mac-glass {
+  background: rgba(18, 24, 38, 0.72);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    0 16px 36px -10px rgba(0, 0, 0, 0.6);
+}
+
 .glass-card {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  background: rgba(20, 26, 42, 0.68);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 12px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .glass-card-hover {
-  transition: all 0.25s ease-in-out;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-card-hover:hover {
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: rgba(165, 180, 252, 0.35);
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px -10px rgba(99, 102, 241, 0.15);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    0 18px 40px -10px rgba(0, 0, 0, 0.65),
+    0 0 20px -4px rgba(99, 102, 241, 0.18);
+}
+
+/* macOS Window / Dialog Sheets */
+.mac-window {
+  background: rgba(22, 28, 45, 0.88);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    0 25px 60px -15px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* macOS Traffic Light Dots */
+.mac-traffic-lights {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.mac-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  border: 0.5px solid rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.15s ease;
+}
+
+.mac-dot span {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.mac-traffic-lights:hover .mac-dot span {
+  opacity: 1;
+}
+
+.mac-dot-close {
+  background: #ff5f57;
+  border-color: #e0443e;
+}
+.mac-dot-close:hover {
+  background: #ff3b30;
+}
+
+.mac-dot-minimize {
+  background: #febc2e;
+  border-color: #d89e24;
+}
+.mac-dot-minimize:hover {
+  background: #ff9500;
+}
+
+.mac-dot-maximize {
+  background: #28c840;
+  border-color: #1aab29;
+}
+.mac-dot-maximize:hover {
+  background: #34c759;
 }
 
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(3, 7, 18, 0.8);
-  backdrop-filter: blur(6px);
+  background-color: rgba(3, 6, 15, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  animation: fadeIn 0.15s ease-out;
+  animation: macModalFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes macModalFade {
+  from { opacity: 0; transform: scale(0.96) translateY(6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* =========================================================
+   Easy-To-Find Mac Buttons & Controls
+   ========================================================= */
+
+/* Primary CTA Button (System Blue / Indigo) */
+.mac-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  background: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 12px rgba(79, 70, 229, 0.35);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.mac-btn-primary:hover {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 6px 18px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
+}
+.mac-btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Emerald Action Button (Add problem / Success CTA) */
+.mac-btn-emerald {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(180deg, #059669 0%, #047857 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.75rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 14px rgba(5, 150, 105, 0.35);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.mac-btn-emerald:hover {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 6px 20px rgba(16, 185, 129, 0.45);
+  transform: translateY(-1px);
+}
+.mac-btn-emerald:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Rose / Crimson Action Button (Review Attempt CTA) */
+.mac-btn-rose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 14px rgba(225, 29, 72, 0.35);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.mac-btn-rose:hover {
+  background: linear-gradient(180deg, #f43f5e 0%, #e11d48 100%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 6px 20px rgba(244, 63, 94, 0.45);
+  transform: translateY(-1px);
+}
+.mac-btn-rose:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Amber / Orange Action Button (External Attempt CTA) */
+.mac-btn-amber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.75rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 14px rgba(217, 119, 6, 0.35);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.mac-btn-amber:hover {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 6px 20px rgba(245, 158, 11, 0.45);
+  transform: translateY(-1px);
+}
+.mac-btn-amber:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Secondary Frosted Glass Button (Details, Edit, Cancel, etc.) */
+.mac-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+.mac-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.mac-btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Danger Button (Delete) */
+.mac-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.75rem;
+  transition: all 0.18s ease;
+}
+.mac-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  border-color: rgba(239, 68, 68, 0.45);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+/* macOS Input / Select Fields */
+.mac-input {
+  background: rgba(10, 15, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.75rem;
+  color: #f8fafc;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.18s ease;
+}
+.mac-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 0 0 3px rgba(99, 102, 241, 0.28);
 }
 
 /* Difficulty Badges */
 .badge-easy {
-  background-color: rgba(16, 185, 129, 0.15);
+  background-color: rgba(16, 185, 129, 0.16);
   color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 10px -2px rgba(16, 185, 129, 0.2);
 }
 
 .badge-medium {
-  background-color: rgba(245, 158, 11, 0.15);
+  background-color: rgba(245, 158, 11, 0.16);
   color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 10px -2px rgba(245, 158, 11, 0.2);
 }
 
 .badge-hard {
-  background-color: rgba(244, 63, 94, 0.15);
+  background-color: rgba(244, 63, 94, 0.16);
   color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.3);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  box-shadow: 0 0 10px -2px rgba(244, 63, 94, 0.2);
 }
 
-/* SRS Result Buttons */
+/* SRS Result Grading Cards */
+.btn-result-card {
+  padding: 0.875rem 1rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
 .btn-result-failed {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.25);
 }
 .btn-result-failed:hover {
-  background: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-result-hints {
-  background: rgba(249, 115, 22, 0.15);
-  color: #fb923c;
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.1);
+  color: #fdba74;
+  border-color: rgba(249, 115, 22, 0.25);
 }
 .btn-result-hints:hover {
-  background: rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.2);
+  border-color: rgba(249, 115, 22, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-result-struggled {
-  background: rgba(234, 179, 8, 0.15);
-  color: #facc15;
-  border: 1px solid rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.1);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.25);
 }
 .btn-result-struggled:hover {
-  background: rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.2);
+  border-color: rgba(234, 179, 8, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-result-comfortable {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.1);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.25);
 }
 .btn-result-comfortable:hover {
-  background: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-result-trivial {
-  background: rgba(168, 85, 247, 0.15);
-  color: #c084fc;
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.1);
+  color: #d8b4fe;
+  border-color: rgba(168, 85, 247, 0.25);
 }
 .btn-result-trivial:hover {
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Active result card */
+.btn-result-selected {
+  border-color: #ffffff !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 0 2px #6366f1,
+    0 8px 24px -4px rgba(99, 102, 241, 0.35) !important;
+  transform: translateY(-2px) scale(1.01);
 }

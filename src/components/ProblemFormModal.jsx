@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Plus, Tag as TagIcon, AlertTriangle, ExternalLink, Eye } from 'lucide-react';
+import { X, Plus, Tag as TagIcon, AlertTriangle, ExternalLink, Eye, CheckCircle2, BookOpen } from 'lucide-react';
 import TagSelector from './TagSelector';
 
 export default function ProblemFormModal({ problem, availableTags = [], onClose, onSave, onTagCreated, onViewExistingProblem }) {
@@ -74,26 +74,51 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
 
   return (
     <div className="modal-overlay">
-      <div className="glass-card rounded-2xl w-full max-w-2xl border border-slate-700 p-6 space-y-6 shadow-2xl relative">
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
-        >
-          <X className="h-5 w-5" />
-        </button>
+      <div className="mac-window rounded-2xl w-full max-w-2xl p-6 space-y-6 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+        {/* macOS Window Header with Traffic Lights */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="mac-traffic-lights">
+            <div className="mac-dot mac-dot-close" onClick={onClose} title="Close">
+              <span>✕</span>
+            </div>
+            <div className="mac-dot mac-dot-minimize" title="Minimize">
+              <span>−</span>
+            </div>
+            <div className="mac-dot mac-dot-maximize" title="Zoom">
+              <span>⤢</span>
+            </div>
+          </div>
 
-        <h2 className="text-xl font-bold font-heading text-white">
-          {isEditing ? 'Edit Problem' : 'Add New Problem'}
-        </h2>
+          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            {isEditing ? 'Edit Problem Item' : 'New Problem Item'}
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10"
+            title="Close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div>
+          <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-400">
+            Repository Management
+          </span>
+          <h2 className="text-xl font-bold font-heading text-white mt-1">
+            {isEditing ? 'Edit Problem' : 'Add New Problem'}
+          </h2>
+        </div>
 
         {/* Duplicate Alert Banner */}
         {duplicateWarning && (
-          <div className="glass-card rounded-xl p-4 border border-rose-500/40 bg-rose-950/30 text-xs space-y-3">
+          <div className="glass-card rounded-xl p-4 border border-rose-500/40 bg-rose-950/40 text-xs space-y-3">
             <div className="flex items-start space-x-3 text-rose-300 font-semibold">
               <AlertTriangle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-bold text-rose-200 text-sm">Duplicate Problem Detected</h4>
-                <p className="mt-0.5">{duplicateWarning.reason}</p>
+                <p className="mt-0.5 leading-relaxed">{duplicateWarning.reason}</p>
               </div>
             </div>
 
@@ -105,7 +130,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                     onClose();
                     onViewExistingProblem(duplicateWarning.existingProblem.id);
                   }}
-                  className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold flex items-center space-x-1 hover:bg-indigo-500"
+                  className="mac-btn-primary py-1.5 px-3 text-xs font-bold flex items-center space-x-1"
                 >
                   <Eye className="h-3.5 w-3.5" />
                   <span>View Existing Problem</span>
@@ -115,7 +140,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
               <button
                 type="button"
                 onClick={() => handleSubmit(null, true)}
-                className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-semibold hover:bg-slate-700"
+                className="mac-btn-secondary py-1.5 px-3 text-xs font-semibold"
               >
                 Add Anyway (Force Create)
               </button>
@@ -133,18 +158,18 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
               placeholder="e.g. 3Sum, Binary Tree Zigzag Level Order Traversal"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2.5 rounded-xl mac-input text-xs text-white placeholder-slate-500 font-medium"
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Difficulty */}
             <div>
               <label className="font-bold text-slate-300 block mb-1">Difficulty *</label>
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2.5 rounded-xl mac-input text-xs text-white font-medium"
               >
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -158,7 +183,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
               <select
                 value={sourceType}
                 onChange={(e) => setSourceType(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2.5 rounded-xl mac-input text-xs text-white font-medium"
               >
                 <option value="leetcode">LeetCode</option>
                 <option value="codeforces">Codeforces</option>
@@ -172,7 +197,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
 
           {/* Conditional Fields */}
           {sourceType === 'book' ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-black/30 border border-white/10">
               <div>
                 <label className="text-[11px] text-slate-400 font-semibold block mb-1">Book Name</label>
                 <input
@@ -180,7 +205,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                   placeholder="e.g. Cracking the Coding Interview"
                   value={bookName}
                   onChange={(e) => setBookName(e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500"
+                  className="w-full px-2.5 py-1.5 rounded-lg mac-input text-xs text-white placeholder-slate-500"
                 />
               </div>
               <div>
@@ -190,7 +215,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                   placeholder="e.g. 142"
                   value={bookPage}
                   onChange={(e) => setBookPage(e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500"
+                  className="w-full px-2.5 py-1.5 rounded-lg mac-input text-xs text-white placeholder-slate-500"
                 />
               </div>
               <div>
@@ -200,7 +225,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                   placeholder="e.g. 4.2"
                   value={bookProblemNumber}
                   onChange={(e) => setBookProblemNumber(e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500"
+                  className="w-full px-2.5 py-1.5 rounded-lg mac-input text-xs text-white placeholder-slate-500"
                 />
               </div>
             </div>
@@ -212,7 +237,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
                 placeholder="https://leetcode.com/problems/..."
                 value={sourceUrl}
                 onChange={(e) => setSourceUrl(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
               />
             </div>
           )}
@@ -225,7 +250,7 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
               placeholder="e.g. Edge cases to keep in mind, intuition notes, or formula summary..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
             />
           </div>
 
@@ -243,20 +268,22 @@ export default function ProblemFormModal({ problem, availableTags = [], onClose,
             />
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4 border-t border-slate-800">
+          {/* Easy-to-find Dialog Buttons */}
+          <div className="flex justify-end items-center space-x-3 pt-4 border-t border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 font-semibold text-xs hover:bg-slate-800"
+              className="mac-btn-secondary px-4 py-2.5 text-xs font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs shadow-md shadow-indigo-600/20 hover:bg-indigo-500 transition-all"
+              className="mac-btn-primary px-5 py-2.5 text-xs font-bold shadow-lg"
             >
-              {isEditing ? 'Save Changes' : 'Create Problem'}
+              <CheckCircle2 className="h-4 w-4" />
+              <span>{isEditing ? 'Save Changes' : 'Create Problem'}</span>
             </button>
           </div>
         </form>

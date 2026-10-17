@@ -80,14 +80,14 @@ export default function TagSelector({
         {selectedTags.map((tagName) => (
           <span
             key={tagName}
-            className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-indigo-950/80 text-indigo-200 border border-indigo-500/30 text-xs font-semibold"
+            className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-indigo-500/15 text-indigo-200 border border-indigo-500/30 text-xs font-semibold shadow-sm backdrop-blur-sm"
           >
             <TagIcon className="h-3 w-3 text-indigo-400" />
             <span>{tagName}</span>
             <button
               type="button"
               onClick={() => handleRemoveTag(tagName)}
-              className="text-indigo-400 hover:text-indigo-100 rounded p-0.5"
+              className="text-indigo-400 hover:text-white rounded p-0.5 transition-colors"
               title="Remove tag"
             >
               <X className="h-3 w-3" />
@@ -100,7 +100,7 @@ export default function TagSelector({
       <div className="relative">
         <div
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-between w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white cursor-text focus-within:border-indigo-500 transition-all"
+          className="flex items-center justify-between w-full px-3 py-2 rounded-xl mac-input text-xs text-white cursor-text transition-all"
         >
           <input
             type="text"
@@ -121,23 +121,23 @@ export default function TagSelector({
                 }
               }
             }}
-            className="w-full bg-transparent text-white placeholder-slate-500 focus:outline-none"
+            className="w-full bg-transparent text-white placeholder-slate-500 focus:outline-none text-xs"
           />
           <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </div>
 
         {/* Dropdown Options */}
         {isOpen && (
-          <div className="absolute z-50 left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-xl bg-slate-900 border border-slate-700 shadow-2xl p-1 text-xs">
+          <div className="absolute z-50 left-0 right-0 mt-1 max-h-52 overflow-y-auto rounded-xl mac-window p-1.5 text-xs shadow-2xl border border-white/15">
             {/* Create option if query typed */}
             {canCreateNew && (
               <button
                 type="button"
                 onClick={handleCreateNewTag}
                 disabled={creating}
-                className="w-full text-left px-3 py-2 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/80 text-indigo-300 font-bold flex items-center space-x-2 transition-all mb-1"
+                className="w-full text-left px-3 py-2 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 font-bold flex items-center space-x-2 transition-all mb-1 border border-indigo-500/30"
               >
-                <Plus className="h-4 w-4 text-indigo-400" />
+                <Plus className="h-4 w-4 text-indigo-300" />
                 <span>Add <strong>"{query.trim()}"</strong> as a new tag</span>
               </button>
             )}
@@ -149,19 +149,19 @@ export default function TagSelector({
                   type="button"
                   key={tag.id || tag.name}
                   onClick={() => handleSelectTag(tag.name)}
-                  className="w-full text-left px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-white flex items-center justify-between transition-all"
+                  className="w-full text-left px-3 py-2 rounded-lg text-slate-200 hover:bg-white/10 hover:text-white flex items-center justify-between transition-all"
                 >
                   <span className="flex items-center space-x-2">
-                    <TagIcon className="h-3 w-3 text-slate-400" />
-                    <span>{tag.name}</span>
+                    <TagIcon className="h-3 w-3 text-indigo-400" />
+                    <span className="font-medium">{tag.name}</span>
                   </span>
                   {tag.problem_count !== undefined && (
-                    <span className="text-[10px] text-slate-500 font-mono">{tag.problem_count} problems</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{tag.problem_count} {tag.problem_count === 1 ? 'problem' : 'problems'}</span>
                   )}
                 </button>
               ))
             ) : !canCreateNew ? (
-              <div className="px-3 py-2 text-slate-500 italic text-center">
+              <div className="px-3 py-2.5 text-slate-400 italic text-center">
                 No matching tags found. Type a name to create one!
               </div>
             ) : null}

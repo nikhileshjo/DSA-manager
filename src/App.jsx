@@ -38,6 +38,21 @@ export default function App() {
   const [attemptingProblem, setAttemptingProblem] = useState(null); // { problem, type }
   const [attemptingExternal, setAttemptingExternal] = useState(null); // slot
   const [showSettings, setShowSettings] = useState(false);
+  const [isMidnight, setIsMidnight] = useState(() => {
+    return localStorage.getItem('dsa_theme') === 'midnight';
+  });
+
+  useEffect(() => {
+    if (isMidnight) {
+      document.documentElement.classList.add('midnight');
+      localStorage.setItem('dsa_theme', 'midnight');
+    } else {
+      document.documentElement.classList.remove('midnight');
+      localStorage.setItem('dsa_theme', 'dark');
+    }
+  }, [isMidnight]);
+
+  const toggleTheme = () => setIsMidnight((prev) => !prev);
 
   // Load initial data
   const loadData = async () => {
@@ -137,13 +152,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenAddProblem={() => setShowAddForm(true)}
         onOpenSettings={() => setShowSettings(true)}
         stats={stats}
+        isMidnight={isMidnight}
+        onToggleTheme={toggleTheme}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
@@ -200,8 +217,12 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-400">
-        <p>Personal DSA Practice Manager • Adaptive SRS & Generalization Tracker</p>
+      <footer className="border-t border-white/10 py-6 text-center text-xs text-slate-400 backdrop-blur-md bg-black/20">
+        <p className="flex items-center justify-center space-x-2">
+          <span>Personal DSA Practice Manager</span>
+          <span>•</span>
+          <span>Adaptive SRS & Generalization Tracker</span>
+        </p>
       </footer>
 
       {/* MODALS */}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ExternalLink, PlusCircle, CheckCircle2 } from 'lucide-react';
+import { X, ExternalLink, PlusCircle, CheckCircle2, Compass, Check } from 'lucide-react';
 import TagSelector from './TagSelector';
 
 export default function ExternalSlotModal({ slot, availableTags = [], onClose, onSubmit, onTagCreated }) {
@@ -57,43 +57,71 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
 
   return (
     <div className="modal-overlay">
-      <div className="glass-card rounded-2xl w-full max-w-xl border border-slate-700 p-6 space-y-6 shadow-2xl relative">
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
-        >
-          <X className="h-5 w-5" />
-        </button>
+      <div className="mac-window rounded-2xl w-full max-w-xl p-6 space-y-6 shadow-2xl relative">
+        {/* macOS Window Header with Traffic Lights */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="mac-traffic-lights">
+            <div className="mac-dot mac-dot-close" onClick={onClose} title="Close">
+              <span>✕</span>
+            </div>
+            <div className="mac-dot mac-dot-minimize" title="Minimize">
+              <span>−</span>
+            </div>
+            <div className="mac-dot mac-dot-maximize" title="Zoom">
+              <span>⤢</span>
+            </div>
+          </div>
+
+          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex items-center space-x-1.5">
+            <Compass className="h-3.5 w-3.5 text-amber-400" />
+            <span>External Slot</span>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10"
+            title="Close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
 
         <div>
-          <span className="text-xs uppercase tracking-wider font-bold text-amber-400">External Practice Slot</span>
+          <span className="text-[11px] uppercase tracking-wider font-bold text-amber-400">
+            Generalization Test
+          </span>
           <h2 className="text-xl font-bold font-heading text-white mt-1">Record Unseen Problem Attempt</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Pick 1 random unsolved problem from LeetCode or another source. Do not look at the solution first.
+          <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+            Pick 1 random unsolved problem from LeetCode or another platform. Test your pure intuition without looking at solutions first.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Result Selection */}
+          {/* Result Selection Buttons */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 block">How did you perform? *</label>
-            <div className="grid grid-cols-5 gap-2">
-              {resultsConfig.map((res) => (
-                <button
-                  type="button"
-                  key={res.key}
-                  onClick={() => setResult(res.key)}
-                  className={`p-2.5 rounded-xl border text-center font-bold text-xs transition-all ${res.style} ${
-                    result === res.key ? 'ring-2 ring-amber-500 scale-[1.02]' : 'opacity-80 hover:opacity-100'
-                  }`}
-                >
-                  {res.label}
-                </button>
-              ))}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {resultsConfig.map((res) => {
+                const isSelected = result === res.key;
+
+                return (
+                  <button
+                    type="button"
+                    key={res.key}
+                    onClick={() => setResult(res.key)}
+                    className={`btn-result-card text-center font-bold text-xs p-2.5 rounded-xl border flex flex-col items-center justify-center space-y-1 ${res.style} ${
+                      isSelected ? 'btn-result-selected' : 'opacity-85 hover:opacity-100'
+                    }`}
+                  >
+                    <span>{res.label}</span>
+                    {isSelected && <Check className="h-3.5 w-3.5 stroke-[3] text-white" />}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="text-xs font-bold text-slate-300 block mb-1">Time Spent (mins)</label>
               <input
@@ -102,37 +130,37 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                 placeholder="e.g. 30"
                 value={timeSpent}
                 onChange={(e) => setTimeSpent(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500 font-mono"
               />
             </div>
-            <div className="md:col-span-2">
+            <div className="sm:col-span-2">
               <label className="text-xs font-bold text-slate-300 block mb-1">Attempt Notes / Key Takeaways</label>
               <input
                 type="text"
                 placeholder="e.g. Practiced sliding window pattern on external problem"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
               />
             </div>
           </div>
 
           {/* Add to Database Toggle */}
-          <div className="glass-card rounded-xl p-4 border border-amber-500/20 bg-amber-950/20 space-y-3">
+          <div className="glass-card rounded-xl p-4 border border-amber-500/25 bg-amber-950/20 space-y-3">
             <label className="flex items-center space-x-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={addToDatabase}
                 onChange={(e) => setAddToDatabase(e.target.checked)}
-                className="h-4 w-4 rounded accent-indigo-600"
+                className="h-4 w-4 rounded accent-indigo-500 cursor-pointer"
               />
-              <span className="text-xs font-bold text-amber-300">
-                Optionally add this problem to your database for future SRS review tracking
+              <span className="text-xs font-bold text-amber-200">
+                Save this problem into your repository for future SRS review tracking
               </span>
             </label>
 
             {addToDatabase && (
-              <div className="space-y-3 pt-2 border-t border-amber-500/20 text-xs">
+              <div className="space-y-3 pt-3 border-t border-amber-500/20 text-xs">
                 <div>
                   <label className="font-bold text-slate-300 block mb-1">Problem Title *</label>
                   <input
@@ -141,7 +169,7 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                     placeholder="e.g. Minimum Window Substring"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500"
+                    className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
                   />
                 </div>
 
@@ -151,7 +179,7 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                     <select
                       value={difficulty}
                       onChange={(e) => setDifficulty(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white"
                     >
                       <option value="easy">Easy</option>
                       <option value="medium">Medium</option>
@@ -163,7 +191,7 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                     <select
                       value={sourceType}
                       onChange={(e) => setSourceType(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white"
                     >
                       <option value="leetcode">LeetCode</option>
                       <option value="codeforces">Codeforces</option>
@@ -180,7 +208,7 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                     placeholder="https://leetcode.com/problems/..."
                     value={sourceUrl}
                     onChange={(e) => setSourceUrl(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500"
+                    className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
                   />
                 </div>
 
@@ -191,27 +219,29 @@ export default function ExternalSlotModal({ slot, availableTags = [], onClose, o
                     onChange={setSelectedTags}
                     availableTags={availableTags}
                     onTagCreated={onTagCreated}
-                    placeholder="Select tags..."
+                    placeholder="Select or add tags..."
                   />
                 </div>
               </div>
             )}
           </div>
 
-          <div className="flex justify-end space-x-3 pt-3 border-t border-slate-800">
+          {/* Easy-to-find Dialog Buttons */}
+          <div className="flex justify-end items-center space-x-3 pt-4 border-t border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 font-semibold text-xs hover:bg-slate-800"
+              className="mac-btn-secondary px-4 py-2.5 text-xs font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs shadow-md shadow-amber-600/20 hover:bg-amber-500 transition-all"
+              className="mac-btn-amber px-5 py-2.5 text-xs font-bold shadow-lg"
             >
-              Record External Attempt
+              <CheckCircle2 className="h-4 w-4" />
+              <span>{isSubmitting ? 'Recording...' : 'Record External Attempt'}</span>
             </button>
           </div>
         </form>

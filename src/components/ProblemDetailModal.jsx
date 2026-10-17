@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Clock, ExternalLink, BookOpen, Tag as TagIcon, Plus, Trash2, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
+import { X, Calendar, Clock, ExternalLink, BookOpen, Tag as TagIcon, Plus, Trash2, MessageSquare, Send, CheckCircle2, Play } from 'lucide-react';
 import TagSelector from './TagSelector';
 import { api } from '../api/client';
 
@@ -79,33 +79,58 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
     }
   };
 
+  const isDue = problem.next_review && new Date(problem.next_review) <= new Date();
+
   return (
     <div className="modal-overlay">
-      <div className="glass-card rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-slate-700 p-6 space-y-6 shadow-2xl relative">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
-        >
-          <X className="h-5 w-5" />
-        </button>
+      <div className="mac-window rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 space-y-6 shadow-2xl relative">
+        {/* macOS Window Header with Traffic Lights */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="mac-traffic-lights">
+            <div className="mac-dot mac-dot-close" onClick={onClose} title="Close">
+              <span>✕</span>
+            </div>
+            <div className="mac-dot mac-dot-minimize" title="Minimize">
+              <span>−</span>
+            </div>
+            <div className="mac-dot mac-dot-maximize" title="Zoom">
+              <span>⤢</span>
+            </div>
+          </div>
 
-        {/* Problem Header */}
+          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            Problem Inspector
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10"
+            title="Close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Problem Header Information */}
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className={`text-xs px-3 py-1 rounded-full font-bold uppercase ${
+            <span className={`text-[10px] px-3 py-0.5 rounded-full font-bold uppercase ${
               problem.difficulty === 'easy' ? 'badge-easy' : problem.difficulty === 'medium' ? 'badge-medium' : 'badge-hard'
             }`}>
               {problem.difficulty}
             </span>
 
-            <span className="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-300 font-semibold border border-slate-800 uppercase">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-md bg-black/40 text-slate-300 font-semibold border border-white/10 uppercase">
               {problem.source_type}
             </span>
 
             {problem.next_review && (
-              <span className="text-xs px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 font-semibold border border-indigo-500/30 flex items-center space-x-1">
-                <Calendar className="h-3.5 w-3.5" />
+              <span className={`text-[11px] px-2.5 py-0.5 rounded-md font-semibold flex items-center space-x-1.5 ${
+                isDue 
+                  ? 'bg-rose-950/70 text-rose-300 border border-rose-500/30' 
+                  : 'bg-indigo-950/70 text-indigo-300 border border-indigo-500/30'
+              }`}>
+                <Calendar className="h-3 w-3" />
                 <span>Next Review: {problem.next_review} (Interval: {problem.interval || 1}d)</span>
               </span>
             )}
@@ -115,21 +140,21 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
 
           {/* Book / URL */}
           {problem.source_type === 'book' && problem.book_name && (
-            <div className="text-sm text-slate-300 flex items-center space-x-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <div className="text-xs text-slate-300 flex items-center space-x-2 bg-black/30 p-2.5 rounded-xl border border-white/10">
               <BookOpen className="h-4 w-4 text-indigo-400" />
               <span>Book: <strong>{problem.book_name}</strong> {problem.book_page ? `(Page ${problem.book_page})` : ''} {problem.book_problem_number ? `#${problem.book_problem_number}` : ''}</span>
             </div>
           )}
 
           {problem.source_url && (
-            <div className="text-sm">
+            <div className="text-xs">
               <a
                 href={problem.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-indigo-400 hover:underline flex items-center space-x-1 font-semibold"
+                className="text-sky-400 hover:text-sky-300 hover:underline flex items-center space-x-1.5 font-semibold"
               >
-                <ExternalLink className="h-4 w-4 inline" />
+                <ExternalLink className="h-3.5 w-3.5 inline" />
                 <span>Open Problem Source URL</span>
               </a>
             </div>
@@ -137,7 +162,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
 
           {/* General Problem Notes */}
           {problem.notes && (
-            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-200 space-y-1">
+            <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 text-xs text-slate-200 space-y-1">
               <span className="font-bold text-indigo-300 block">Problem Notes / Intuition:</span>
               <p className="whitespace-pre-wrap leading-relaxed">{problem.notes}</p>
             </div>
@@ -145,11 +170,11 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
 
           {/* Problem Tags */}
           {problem.tags && problem.tags.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 pt-2">
-              <span className="text-xs font-semibold text-slate-400">Problem Tags:</span>
+            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+              <span className="text-[11px] font-semibold text-slate-400">Problem Tags:</span>
               {problem.tags.map((t) => (
-                <span key={t.id} className="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-slate-200 border border-slate-800 flex items-center space-x-1">
-                  <TagIcon className="h-3 w-3 text-indigo-400" />
+                <span key={t.id} className="text-[11px] px-2.5 py-0.5 rounded-md bg-white/5 text-slate-200 border border-white/10 flex items-center space-x-1">
+                  <TagIcon className="h-2.5 w-2.5 text-indigo-400" />
                   <span>{t.name}</span>
                 </span>
               ))}
@@ -157,36 +182,38 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
           )}
         </div>
 
-        {/* Action Button */}
-        <div className="flex items-center space-x-3 border-y border-slate-800 py-3">
+        {/* Big Easy-to-Find Primary CTA Bar */}
+        <div className="flex items-center justify-between border-y border-white/10 py-3.5">
+          <span className="text-xs text-slate-400 font-medium">Ready to test your recall or solve this problem?</span>
           <button
             onClick={() => onAttemptProblem(problem, problem.attempts && problem.attempts.length > 0 ? 'review' : 'fresh')}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-sm shadow-lg shadow-indigo-600/20 hover:brightness-110"
+            className={isDue ? "mac-btn-rose px-5 py-2.5 text-xs font-bold shadow-lg" : "mac-btn-primary px-5 py-2.5 text-xs font-bold shadow-lg"}
           >
-            Record Attempt Now
+            <Play className="h-3.5 w-3.5 fill-current" />
+            <span>Record Attempt Now</span>
           </button>
         </div>
 
         {/* Comments & Discussion Section */}
         <div className="space-y-4">
           <div className="flex items-center space-x-2">
-            <MessageSquare className="h-5 w-5 text-indigo-400" />
-            <h3 className="text-lg font-bold font-heading text-white">Problem Comments & Notes</h3>
+            <MessageSquare className="h-4 w-4 text-indigo-400" />
+            <h3 className="text-base font-bold font-heading text-white">Problem Notes & Discussion</h3>
           </div>
 
           {/* Add Comment Form */}
           <form onSubmit={handleAddComment} className="flex items-start space-x-2">
             <textarea
               rows={2}
-              placeholder="Add a comment, edge case reminder, or key takeaway for this problem..."
+              placeholder="Add an edge-case reminder, runtime observation, or mental model for this problem..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="flex-1 px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
             />
             <button
               type="submit"
               disabled={isSubmittingComment || !newComment.trim()}
-              className="px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs shadow-md shadow-indigo-600/20 hover:bg-indigo-500 disabled:opacity-50 transition-all flex items-center space-x-1 h-full"
+              className="mac-btn-primary px-4 py-2.5 text-xs font-bold disabled:opacity-50 flex items-center space-x-1.5 h-full"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Post</span>
@@ -197,14 +224,14 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
           {problem.comments && problem.comments.length > 0 ? (
             <div className="space-y-2">
               {problem.comments.map((comment) => (
-                <div key={comment.id} className="glass-card rounded-xl p-3.5 border border-slate-800 text-xs space-y-1 relative group">
+                <div key={comment.id} className="glass-card rounded-xl p-3 border border-white/10 text-xs space-y-1 relative group">
                   <div className="flex items-center justify-between text-slate-400 text-[11px]">
                     <span className="font-semibold text-slate-300">
                       {new Date(comment.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </span>
                     <button
                       onClick={() => handleDeleteComment(comment.id)}
-                      className="text-slate-500 hover:text-rose-400 p-1 opacity-80 group-hover:opacity-100 transition-opacity"
+                      className="text-slate-500 hover:text-rose-400 p-1 opacity-70 group-hover:opacity-100 transition-opacity"
                       title="Delete Comment"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
@@ -215,17 +242,17 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-400 italic">No comments added yet.</p>
+            <p className="text-xs text-slate-400 italic">No notes or comments added yet.</p>
           )}
         </div>
 
         {/* Solutions Section */}
-        <div className="space-y-4 border-t border-slate-800 pt-4">
+        <div className="space-y-4 border-t border-white/10 pt-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold font-heading text-white">Solutions & Editorials</h3>
+            <h3 className="text-base font-bold font-heading text-white">Solutions & Editorials</h3>
             <button
               onClick={() => setShowAddSolution(!showAddSolution)}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs font-semibold hover:bg-slate-800"
+              className="mac-btn-secondary px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center space-x-1.5"
             >
               <Plus className="h-3.5 w-3.5" />
               <span>{showAddSolution ? 'Cancel' : 'Add Solution Link'}</span>
@@ -234,37 +261,37 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
 
           {/* Add Solution Form */}
           {showAddSolution && (
-            <form onSubmit={handleAddSolution} className="glass-card rounded-xl p-4 border border-indigo-500/30 space-y-3 bg-slate-950/60">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400">New Solution Link</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <form onSubmit={handleAddSolution} className="mac-glass rounded-xl p-4 border border-indigo-500/30 space-y-3 bg-black/40">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-indigo-400">New Solution Link</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
                   placeholder="Solution Title (e.g., Two Heaps approach, NeetCode Video)"
                   value={solTitle}
                   onChange={(e) => setSolTitle(e.target.value)}
                   required
-                  className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
                 />
                 <input
                   type="url"
                   placeholder="Solution URL (e.g. https://...)"
                   value={solUrl}
                   onChange={(e) => setSolUrl(e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
                 />
               </div>
 
               <textarea
-                placeholder="Optional Solution Notes / Summary..."
+                placeholder="Optional Solution Notes / Time Complexity summary..."
                 value={solNotes}
                 onChange={(e) => setSolNotes(e.target.value)}
                 rows={2}
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-xl mac-input text-xs text-white placeholder-slate-500"
               />
 
               <div>
                 <label className="text-[11px] text-slate-400 font-semibold block mb-1">
-                  Solution Specific Tags (Independent of problem tags):
+                  Solution Specific Tags:
                 </label>
                 <TagSelector
                   selectedTags={solSelectedTags}
@@ -278,7 +305,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
               <button
                 type="submit"
                 disabled={isSubmittingSol}
-                className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition-all"
+                className="mac-btn-emerald py-2 px-4 text-xs font-bold"
               >
                 Save Solution
               </button>
@@ -289,7 +316,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
           {problem.solutions && problem.solutions.length > 0 ? (
             <div className="grid gap-3">
               {problem.solutions.map((sol) => (
-                <div key={sol.id} className="glass-card rounded-xl p-4 border border-slate-800 space-y-2">
+                <div key={sol.id} className="glass-card rounded-xl p-4 border border-white/10 space-y-2">
                   <div className="flex items-start justify-between">
                     <div>
                       <h4 className="text-sm font-bold text-white">{sol.title}</h4>
@@ -298,7 +325,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
                           href={sol.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-indigo-400 hover:underline flex items-center space-x-1 mt-0.5"
+                          className="text-xs text-sky-400 hover:text-sky-300 hover:underline flex items-center space-x-1 mt-0.5"
                         >
                           <ExternalLink className="h-3 w-3 inline" />
                           <span>{sol.url}</span>
@@ -308,7 +335,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
 
                     <button
                       onClick={() => handleDeleteSolution(sol.id)}
-                      className="text-rose-400 hover:text-rose-300 p-1"
+                      className="text-slate-400 hover:text-rose-400 p-1"
                       title="Delete Solution"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
@@ -316,7 +343,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
                   </div>
 
                   {sol.notes && (
-                    <p className="text-xs text-slate-300 bg-slate-950 p-2 rounded border border-slate-900 whitespace-pre-wrap">
+                    <p className="text-xs text-slate-300 bg-black/40 p-2.5 rounded-lg border border-white/5 whitespace-pre-wrap">
                       {sol.notes}
                     </p>
                   )}
@@ -325,7 +352,7 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
                     <div className="flex flex-wrap items-center gap-1 pt-1">
                       <span className="text-[11px] text-slate-400">Solution Tags:</span>
                       {sol.tags.map((st) => (
-                        <span key={st.id} className="text-[11px] px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-500/20">
+                        <span key={st.id} className="text-[10px] px-2 py-0.5 rounded-md bg-indigo-950/80 text-indigo-300 border border-indigo-500/25">
                           {st.name}
                         </span>
                       ))}
@@ -340,15 +367,15 @@ export default function ProblemDetailModal({ problem, availableTags = [], onClos
         </div>
 
         {/* Attempt History Section */}
-        <div className="space-y-3 border-t border-slate-800 pt-4">
-          <h3 className="text-lg font-bold font-heading text-white">Attempt History</h3>
+        <div className="space-y-3 border-t border-white/10 pt-4">
+          <h3 className="text-base font-bold font-heading text-white">Attempt History</h3>
           {problem.attempts && problem.attempts.length > 0 ? (
             <div className="space-y-2">
               {problem.attempts.map((att) => (
-                <div key={att.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                <div key={att.id} className="flex items-center justify-between p-3 rounded-xl bg-black/30 border border-white/10 text-xs">
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className={`px-2.5 py-0.5 rounded-full font-bold uppercase text-[11px] ${
+                      <span className={`px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
                         att.result === 'failed' ? 'btn-result-failed' :
                         att.result === 'needed_hints' ? 'btn-result-hints' :
                         att.result === 'struggled' ? 'btn-result-struggled' :
