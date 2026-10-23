@@ -3,17 +3,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dsa-manager-app
+    container_name: spark-manager-app
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
-      - PORT=3000
+      - PORT=3002
       - NODE_ENV=production
-      - DATABASE_PATH=/app/data/dsa_manager.db
+      - DATABASE_PATH=/app/data/spark_manager.db
     volumes:
-      - dsa_data:/app/data
+      - spark_data:/app/data
     restart: unless-stopped
 
 volumes:
-  dsa_data:
+  spark_data:
     driver: local

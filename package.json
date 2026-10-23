@@ -1,7 +1,7 @@
 {
-  "name": "dsa-manager",
+  "name": "spark-manager",
   "version": "1.0.0",
-  "description": "Personal DSA Practice Management Application with SRS & Adaptive Daily Capacity",
+  "description": "Personal Spark Practice Management Application with SRS & Adaptive Daily Capacity",
   "main": "server/index.js",
   "type": "module",
   "scripts": {

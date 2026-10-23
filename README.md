@@ -1,4 +1,4 @@
-# Personal DSA Practice Tracker
+# Personal Spark Practice Tracker
 
 A personal Data Structures & Algorithms practice management application designed to optimize actual problem-solving ability through spaced repetition (SRS), weak topic prioritization, external problem generalization slots, and user-controlled daily practice capacity.
 
@@ -22,7 +22,7 @@ A personal Data Structures & Algorithms practice management application designed
 
 4. **Normalized Database Schema & Interactive Tag Selector**:
    - Interactive dropdown tag selector for choosing existing tags or adding new ones on-the-fly.
-   - Pre-seeded standard DSA tags (`Array`, `Heap`, `Binary Tree`, `Dynamic Programming`, `Sliding Window`, etc.) to prevent tag spelling duplicates.
+   - Pre-seeded standard Spark tags (`RDD`, `DataFrame`, `Spark SQL`, `Transformations`, `Streaming`, etc.) to prevent tag spelling duplicates.
    - Many-to-many relationship for problem tags (`problems` ↔ `tags`).
    - Multiple solutions per problem (`solutions` ↔ `tags`) with **independent solution tags** that do not force inherit problem tags.
    - Complete, append-only attempt history.
@@ -78,7 +78,7 @@ docker compose down
 ```
 
 ### Backups
-Use the **Backup** button in the navbar to export a JSON snapshot of your entire database at any time. The file downloads to your browser's download location and can be imported into any other DSA Manager instance (even on another computer) via **Backup → Import**. Importing replaces all existing data, so you are prompted to export your current data first when the database is not empty.
+Use the **Backup** button in the navbar to export a JSON snapshot of your entire database at any time. The file downloads to your browser's download location and can be imported into any other Spark Manager instance (even on another computer) via **Backup → Import**. Importing replaces all existing data, so you are prompted to export your current data first when the database is not empty.
 
 ---
 

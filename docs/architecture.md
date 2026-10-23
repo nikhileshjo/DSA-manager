@@ -25,7 +25,7 @@ This document describes the software architecture, database schema, domain modul
                              ▼
               ┌──────────────────────────────┐
               │     SQLite Database          │
-              │  (/app/data/dsa_manager.db)  │
+              │  (/app/data/spark_manager.db)  │
               └──────────────────────────────┘
 ```
 
@@ -164,4 +164,4 @@ The UI flow (`src/components/BackupModal.jsx`):
 - Multi-stage `Dockerfile`:
   - `builder`: Compiles native SQLite bindings (`better-sqlite3`) & builds Vite React bundle.
   - `runner`: Lightweight production image with SQLite runtime and static assets.
-- Named Volume `dsa_data` mounted at `/app/data/` for permanent database storage.
+- Named Volume `spark_data` mounted at `/app/data/` for permanent database storage.

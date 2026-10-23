@@ -3,7 +3,7 @@
 *.db-journal
 *.db-wal
 *.db-shm
-dsa_manager.db
+spark_manager.db
 
 # Dependencies
 node_modules/

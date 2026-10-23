@@ -102,7 +102,7 @@ export function generateExportData(db) {
 
   return {
     version: 1,
-    app: 'dsa-manager',
+    app: 'spark-manager',
     exported_at: new Date().toISOString(),
     settings,
     tags: allTags,
@@ -458,7 +458,7 @@ router.get('/export', (req, res) => {
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0];
     const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-');
-    const filename = `dsa_manager_backup_${dateStr}_${timeStr}.json`;
+    const filename = `spark_manager_backup_${dateStr}_${timeStr}.json`;
 
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

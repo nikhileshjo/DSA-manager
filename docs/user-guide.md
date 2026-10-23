@@ -1,6 +1,6 @@
 # User Guide
 
-This guide walks you through using the Personal DSA Practice Tracker step-by-step.
+This guide walks you through using the Personal Spark Practice Tracker step-by-step.
 
 ---
 
@@ -93,11 +93,11 @@ The **Backup** button in the navbar opens the Backup & Restore panel.
 
 ### Exporting a backup
 1. Click **Backup** in the navbar, then **Export & Download**.
-2. The browser downloads a single JSON file (e.g. `dsa_manager_backup_2026-01-15_14-30-00.json`) containing every problem, tag, solution link, attempt history, SRS schedule, and your daily capacity setting.
+2. The browser downloads a single JSON file (e.g. `spark_manager_backup_2026-01-15_14-30-00.json`) containing every problem, tag, solution link, attempt history, SRS schedule, and your daily capacity setting.
 3. Save the file anywhere you like — it is your complete database snapshot.
 
 ### Importing a backup (on this or another computer)
-1. Copy the exported JSON file to the other computer and open DSA Manager there.
+1. Copy the exported JSON file to the other computer and open Spark Manager there.
 2. Click **Backup**, then choose the `.json` file under **Import / Restore**.
 3. The application shows what is inside the file (problem, attempt, and tag counts) and compares it against what is already in the database.
 

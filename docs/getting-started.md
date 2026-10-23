@@ -1,6 +1,6 @@
 # Getting Started Guide
 
-This guide explains how to set up, run, test, and manage the Personal DSA Practice Manager application using Docker.
+This guide explains how to set up, run, test, and manage the Personal Spark Practice Manager application using Docker.
 
 ---
 
@@ -18,7 +18,7 @@ Required on host machine:
 
 ### Step A: Clone / Navigate to Workspace
 ```bash
-cd DSA-manager
+cd Spark-manager
 ```
 
 ### Step B: Build Docker Image
@@ -34,7 +34,7 @@ docker compose up
 ```
 
 Once started, the server will output:
-`DSA Practice Tracker server running on port 3000`
+`Spark Practice Tracker server running on port 3000`
 
 Access the web interface at:
 **`http://localhost:3000`** (or `http://127.0.0.1:3000`)
@@ -64,13 +64,13 @@ Expected output:
 
 ## 4. Database Location & Data Persistence
 
-The application uses an embedded **SQLite** database (`dsa_manager.db`).
+The application uses an embedded **SQLite** database (`spark_manager.db`).
 
-- **Inside Container Path**: `/app/data/dsa_manager.db`
-- **Docker Volume Name**: `dsa_data` (mapped in `docker-compose.yml`)
+- **Inside Container Path**: `/app/data/spark_manager.db`
+- **Docker Volume Name**: `spark_data` (mapped in `docker-compose.yml`)
 
 ### How Data Persists
-Because the database file is stored inside the named Docker volume `dsa_data`, your problems, attempt histories, solution links, and settings **persist permanently across container restarts, rebuilds, and updates**.
+Because the database file is stored inside the named Docker volume `spark_data`, your problems, attempt histories, solution links, and settings **persist permanently across container restarts, rebuilds, and updates**.
 
 ### Resetting / Clearing Data (Optional)
 If you ever want to completely wipe the database and start fresh:
@@ -82,7 +82,7 @@ docker compose down -v
 The application includes a **Backup & Restore** feature (Backup button in the navbar) so you can snapshot your entire database at any time:
 
 - **Export**: Downloads one JSON file with all problems, tags, solutions, attempts, SRS schedules, and settings to your browser's download location.
-- **Import**: Restores that JSON file on this computer or any other computer running DSA Manager.
+- **Import**: Restores that JSON file on this computer or any other computer running Spark Manager.
 - Importing wipes existing data; when data exists, the UI prompts you to export your current data first.
 
 Backups are the recommended way to move your practice data between computers or to safeguard it before resetting the database.

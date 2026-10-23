@@ -35,7 +35,7 @@ RUN mkdir -p /app/data
 
 ENV PORT=3000
 ENV NODE_ENV=production
-ENV DATABASE_PATH=/app/data/dsa_manager.db
+ENV DATABASE_PATH=/app/data/spark_manager.db
 
 EXPOSE 3000
 

@@ -1,8 +1,8 @@
-# Build: Personal DSA Practice Tracker
+# Build: Personal Spark Practice Tracker
 
-Build a personal DSA practice management application.
+Build a personal Spark practice management application.
 
-The purpose is to help me improve actual DSA problem-solving ability through a combination of:
+The purpose is to help me improve actual Spark problem-solving ability through a combination of:
 
 1. Spaced repetition of problems I've already attempted.
 2. Regular exposure to fresh problems.
@@ -41,7 +41,7 @@ Before making major architectural choices, briefly explain the proposed architec
 
 # 2. Problem model
 
-Each problem represents a DSA problem that I have added to my personal database.
+Each problem represents a Spark problem that I have added to my personal database.
 
 Store:
 
@@ -1144,7 +1144,7 @@ The README should make clear that **all application dependencies run inside Dock
 
 Consider the project complete only when I can:
 
-1. Add a DSA problem.
+1. Add a Spark problem.
 2. Give it Easy/Medium/Hard difficulty.
 3. Add multiple tags.
 4. Add one or more source references.

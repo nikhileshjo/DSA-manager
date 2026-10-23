@@ -37,7 +37,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddProblem, onOp
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-base lg:text-lg font-bold font-heading text-white tracking-tight">
-                  DSA Manager
+                  Spark Manager
                 </h1>
                 <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                   SRS

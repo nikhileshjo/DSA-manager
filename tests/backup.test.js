@@ -47,7 +47,7 @@ describe('Backup & Restore', () => {
     const data = generateExportData(db);
 
     expect(data.version).toBe(1);
-    expect(data.app).toBe('dsa-manager');
+    expect(data.app).toBe('spark-manager');
     expect(data.settings.daily_capacity).toBe('5');
     expect(data.tags).toContain('Heap');
     expect(data.tags).toContain('Array');

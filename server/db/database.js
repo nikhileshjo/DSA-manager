@@ -10,7 +10,7 @@ export function getDb(dbPathOverride = null) {
     return dbInstance;
   }
 
-  const dbPath = dbPathOverride || process.env.DATABASE_PATH || path.resolve(process.cwd(), 'dsa_manager.db');
+  const dbPath = dbPathOverride || process.env.DATABASE_PATH || path.resolve(process.cwd(), 'spark_manager.db');
   
   // Ensure directory exists if path includes subfolder
   const dir = path.dirname(dbPath);
@@ -39,14 +39,15 @@ export function getDb(dbPathOverride = null) {
     db.prepare("INSERT INTO settings (key, value) VALUES ('daily_capacity', '5')").run();
   }
 
-  // Seed standard DSA tags if tags table is empty
+  // Seed standard Spark tags if tags table is empty
   const tagCount = db.prepare("SELECT COUNT(*) as count FROM tags").get().count;
   if (tagCount === 0) {
     const defaultTags = [
-      'Array', 'String', 'Hash Map', 'Stack', 'Queue', 'Heap',
-      'Priority Queue', 'Binary Tree', 'BST', 'Graph', 'BFS', 'DFS',
-      'Dynamic Programming', 'Greedy', 'Binary Search', 'Two Pointers',
-      'Sliding Window', 'Recursion', 'Backtracking'
+      'RDD', 'DataFrame', 'Dataset', 'Spark SQL', 'Transformations',
+      'Actions', 'Partitions', 'Shuffling', 'Broadcast', 'Caching',
+      'Joins', 'Window Functions', 'UDF', 'Streaming', 'Kafka',
+      'Performance Tuning', 'Memory Management', 'Cluster', 'YARN',
+      'HDFS', 'Delta Lake', 'Parquet', 'Schema', 'Aggregations'
     ];
     const insertTag = db.prepare("INSERT OR IGNORE INTO tags (name) VALUES (?)");
     const seedTx = db.transaction(() => {

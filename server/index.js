@@ -51,7 +51,7 @@ app.use((err, req, res, next) => {
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    console.log(`DSA Practice Tracker server running on port ${PORT}`);
+    console.log(`Spark Practice Tracker server running on port ${PORT}`);
   });
 }
 

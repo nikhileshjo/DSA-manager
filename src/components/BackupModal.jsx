@@ -19,7 +19,7 @@ export default function BackupModal({ open = false, onClose }) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `dsa_manager_backup_${new Date().toISOString().replace(/[:.-]/g, '')}.json`;
+      a.download = `spark_manager_backup_${new Date().toISOString().replace(/[:.-]/g, '')}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -43,7 +43,7 @@ export default function BackupModal({ open = false, onClose }) {
       try {
         const parsed = JSON.parse(reader.result);
         if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.problems)) {
-          throw new Error('Not a valid DSA Manager backup file.');
+          throw new Error('Not a valid Spark Manager backup file.');
         }
         setFileName(file.name);
         setBackupData(parsed);
@@ -98,7 +98,7 @@ export default function BackupModal({ open = false, onClose }) {
             </div>
             <div>
               <h2 className="text-xl font-bold font-heading text-white">Backup &amp; Restore</h2>
-              <p className="text-xs text-slate-400">Export or import your entire DSA practice database</p>
+              <p className="text-xs text-slate-400">Export or import your entire Spark practice database</p>
             </div>
           </div>
           <button
