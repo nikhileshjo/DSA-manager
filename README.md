@@ -35,7 +35,12 @@ A personal Data Structures & Algorithms practice management application designed
    - Explicit manual external slot instruction ("Pick 1 random unsolved problem from LeetCode or another source").
    - Record attempt result and optionally import into database as a tracked problem.
 
-6. **100% Docker Containerized**:
+7. **Database Backup & Restore**:
+   - One-click **Export** downloads a single JSON file with every problem, tag, solution, attempt, SRS schedule, and setting.
+   - **Import** restores a backup on this or another computer.
+   - Importing warns when existing data exists and will wipe it; you are offered to export your existing data first.
+
+8. **100% Docker Containerized**:
    - Runs entirely inside Docker keeping your host system clean.
    - SQLite database volume persistence.
 
@@ -71,6 +76,9 @@ docker compose run --rm app npm test
 ```bash
 docker compose down
 ```
+
+### Backups
+Use the **Backup** button in the navbar to export a JSON snapshot of your entire database at any time. The file downloads to your browser's download location and can be imported into any other DSA Manager instance (even on another computer) via **Backup → Import**. Importing replaces all existing data, so you are prompted to export your current data first when the database is not empty.
 
 ---
 

@@ -85,3 +85,27 @@ The application will adapt your daily practice list to never exceed this capacit
 3. **Generalization vs Retention Warning**:
    - If your Review Solve Rate is high (e.g. 92%) but your Fresh Solve Rate is low (e.g. 45%), the application will display an insight warning indicating that you may be memorizing past solutions rather than mastering underlying concepts.
 4. **Weak & Strong Topics**: Check tag-level performance tables to see which topics require focused practice.
+
+---
+## Step 7: Back Up & Restore Your Database
+
+The **Backup** button in the navbar opens the Backup & Restore panel.
+
+### Exporting a backup
+1. Click **Backup** in the navbar, then **Export & Download**.
+2. The browser downloads a single JSON file (e.g. `dsa_manager_backup_2026-01-15_14-30-00.json`) containing every problem, tag, solution link, attempt history, SRS schedule, and your daily capacity setting.
+3. Save the file anywhere you like — it is your complete database snapshot.
+
+### Importing a backup (on this or another computer)
+1. Copy the exported JSON file to the other computer and open DSA Manager there.
+2. Click **Backup**, then choose the `.json` file under **Import / Restore**.
+3. The application shows what is inside the file (problem, attempt, and tag counts) and compares it against what is already in the database.
+
+> **⚠️ Existing data will be wiped**: If the target database already contains data, importing replaces **all** of it — problems, attempts, solutions, schedules, tags, and settings. The application warns you before doing this.
+>
+> **Export first**: When existing data is detected, click **"Export Existing Data First"** to download a backup of your current data before importing. Once you have saved it, check "I understand this will erase all existing data" and click **"Import & Replace All Data"**.
+
+4. After import completes, click **Reload App** so the restored data appears in the UI.
+
+Your backup file is portable: export on one computer, import on another, and continue your practice exactly where you left off.
+

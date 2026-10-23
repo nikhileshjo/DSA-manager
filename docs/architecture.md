@@ -139,6 +139,23 @@ All business logic is isolated into pure, independently testable modules:
 | `GET` | `/api/stats` | Analytics dashboard metrics & generalization insights |
 | `GET` | `/api/settings` | Get configuration settings |
 | `PUT` | `/api/settings` | Update configuration settings |
+| `GET` | `/api/backup/export` | Download the full database as a JSON backup file (`Content-Disposition: attachment`) |
+| `POST` | `/api/backup/inspect` | Inspect a backup payload; reports existing vs incoming data and duplicate detection |
+| `POST` | `/api/backup/import` | Restore a backup (`wipe` replaces all data; `merge` preserves non-duplicate data) |
+
+## 6. Backup & Restore
+
+Backup logic lives in `server/routes/backup.js` and exposes three helpers used by the API routes:
+
+- **`generateExportData(db)`** — Serializes the full database (problems, tags, problem/solution tags, solutions, comments, attempts, scheduling, settings, external attempts) into a versioned JSON payload (`{ version, app, exported_at, settings, tags, problems, external_attempts }`).
+- **`inspectImportData(db, backupData)`** — Validates the payload and compares it against the current database: existing data counts, incoming backup counts, and duplicate problems. Returned `hasExistingData` is used by the UI to show the wipe warning and offer an export-first step.
+- **`executeImport(db, { mode, backupData, duplicateResolutions })`** — Runs the import inside a transaction. In `wipe` mode all tables are cleared in foreign-key-safe order before restoring; in `merge` mode existing data is preserved and duplicates can be skipped, replaced, or renamed. Settings, tags, problems, solutions, comments, attempts, and scheduling rows are all restored.
+
+The UI flow (`src/components/BackupModal.jsx`):
+
+1. **Export**: `GET /api/backup/export` returns the JSON as a downloadable attachment file via a blob download.
+2. **Import**: The user selects a `.json` file → `POST /api/backup/inspect` → if existing data exists, the UI warns that importing will wipe it and offers "Export Existing Data First" → user confirms wipe → `POST /api/backup/import` with `mode: "wipe"` → page reloads to show restored data.
+
 
 ---
 

@@ -78,6 +78,16 @@ If you ever want to completely wipe the database and start fresh:
 docker compose down -v
 ```
 
+### Backups (Export / Restore)
+The application includes a **Backup & Restore** feature (Backup button in the navbar) so you can snapshot your entire database at any time:
+
+- **Export**: Downloads one JSON file with all problems, tags, solutions, attempts, SRS schedules, and settings to your browser's download location.
+- **Import**: Restores that JSON file on this computer or any other computer running DSA Manager.
+- Importing wipes existing data; when data exists, the UI prompts you to export your current data first.
+
+Backups are the recommended way to move your practice data between computers or to safeguard it before resetting the database.
+
+
 ---
 
 ## 5. Updating / Rebuilding Code
