@@ -51,4 +51,16 @@ export const api = {
   // Settings
   getSettings: () => fetchJson('/settings'),
   updateSettings: (key, value) => fetchJson('/settings', { method: 'PUT', body: JSON.stringify({ key, value }) }),
+
+  // Backup / Restore
+  exportBackup: async () => {
+    const res = await fetch(`${API_BASE}/backup/export`);
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({ error: res.statusText }));
+      throw new Error(errorData.error || `HTTP error ${res.status}`);
+    }
+    return res.blob();
+  },
+  inspectBackup: (backupData) => fetchJson('/backup/inspect', { method: 'POST', body: JSON.stringify(backupData) }),
+  importBackup: (payload) => fetchJson('/backup/import', { method: 'POST', body: JSON.stringify(payload) }),
 };

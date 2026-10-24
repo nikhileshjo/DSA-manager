@@ -8,6 +8,7 @@ import AttemptModal from './components/AttemptModal';
 import ExternalSlotModal from './components/ExternalSlotModal';
 import StatsView from './components/StatsView';
 import SettingsModal from './components/SettingsModal';
+import BackupModal from './components/BackupModal';
 import { api } from './api/client';
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
   const [attemptingProblem, setAttemptingProblem] = useState(null); // { problem, type }
   const [attemptingExternal, setAttemptingExternal] = useState(null); // slot
   const [showSettings, setShowSettings] = useState(false);
+  const [showBackup, setShowBackup] = useState(false);
   const [isMidnight, setIsMidnight] = useState(() => {
     return localStorage.getItem('sql_theme') === 'midnight' || localStorage.getItem('dsa_theme') === 'midnight';
   });
@@ -158,6 +160,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         onOpenAddProblem={() => setShowAddForm(true)}
         onOpenSettings={() => setShowSettings(true)}
+        onOpenBackup={() => setShowBackup(true)}
         stats={stats}
         isMidnight={isMidnight}
         onToggleTheme={toggleTheme}
@@ -183,6 +186,7 @@ export default function App() {
                 }}
                 onRefresh={handleRefreshPractice}
                 onOpenSettings={() => setShowSettings(true)}
+        onOpenBackup={() => setShowBackup(true)}
               />
             )}
 
@@ -281,6 +285,12 @@ export default function App() {
           currentCapacity={stats?.overview?.dailyCapacity || 5}
           onClose={() => setShowSettings(false)}
           onSave={handleSaveCapacity}
+        />
+      )}
+      {showBackup && (
+        <BackupModal
+          open={showBackup}
+          onClose={() => setShowBackup(false)}
         />
       )}
     </div>

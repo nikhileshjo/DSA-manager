@@ -11,6 +11,7 @@ import solutionsRouter from './routes/solutions.js';
 import practiceRouter from './routes/practice.js';
 import statsRouter from './routes/stats.js';
 import settingsRouter from './routes/settings.js';
+import backupRouter from './routes/backup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,6 +32,7 @@ app.use('/api', solutionsRouter);
 app.use('/api/practice', practiceRouter);
 app.use('/api/stats', statsRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/backup', backupRouter);
 
 // Serve static frontend in production
 const distPath = path.resolve(__dirname, '../dist');

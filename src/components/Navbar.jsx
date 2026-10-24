@@ -1,7 +1,7 @@
 import React from 'react';
-import { Database, CalendarCheck, Library, BarChart3, Settings, Plus, Sparkles, Moon } from 'lucide-react';
+import { Database, CalendarCheck, Library, BarChart3, Settings, Plus, Sparkles, Moon, Download } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, onOpenAddProblem, onOpenSettings, stats, isMidnight, onToggleTheme }) {
+export default function Navbar({ activeTab, setActiveTab, onOpenAddProblem, onOpenSettings, onOpenBackup, stats, isMidnight, onToggleTheme }) {
   const capacity = stats?.overview?.dailyCapacity || 5;
   const dueCount = stats?.overview?.dueReviewsCount || 0;
 
@@ -116,6 +116,15 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddProblem, onOp
             <span className="text-xs font-semibold text-slate-200">
               Capacity: <span className="text-indigo-400 font-bold">{capacity}</span>/d
             </span>
+          </button>
+          {/* Backup / Restore */}
+          <button
+            onClick={onOpenBackup}
+            title="Export or import your database backup"
+            className="mac-btn-secondary py-2 px-3 rounded-xl flex items-center space-x-1.5 group"
+          >
+            <Download className="h-3.5 w-3.5 text-indigo-400 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold text-slate-200 hidden sm:inline">Backup</span>
           </button>
 
           {/* Prominent Easy-to-Find Add Problem CTA */}

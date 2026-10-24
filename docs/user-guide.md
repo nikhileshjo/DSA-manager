@@ -85,3 +85,19 @@ The application will adapt your daily practice list to never exceed this capacit
 3. **Generalization vs Retention Warning**:
    - If your Review Solve Rate is high (e.g. 92%) but your Fresh Solve Rate is low (e.g. 45%), the application will display an insight warning indicating that you may be memorizing past solutions rather than mastering underlying concepts.
 4. **Weak & Strong Topics**: Check tag-level performance tables to see which topics require focused practice.
+
+---
+
+## Backups (Export / Restore)
+
+The **Backup** button in the navbar opens the Backup & Restore panel.
+
+### Exporting a backup
+1. Click **Backup** in the navbar, then **Export & Download**.
+2. The browser downloads a single JSON file (e.g. `sql_manager_backup_2026-01-15_14-30-00.json`) containing every problem, tag, solution link, attempt history, SRS schedule, and your daily capacity setting.
+
+### Importing a backup (on this or another computer)
+1. Click **Backup**, then choose the `.json` file under **Import / Restore**.
+2. If existing data is detected, you are warned and offered "Export Existing Data First" before importing.
+
+Your backup file is portable: export on one computer, import on another, and continue your practice exactly where you left off.

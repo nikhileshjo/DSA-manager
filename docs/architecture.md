@@ -139,6 +139,9 @@ All business logic is isolated into pure, independently testable modules:
 | `GET` | `/api/stats` | Analytics dashboard metrics & generalization insights |
 | `GET` | `/api/settings` | Get configuration settings |
 | `PUT` | `/api/settings` | Update configuration settings |
+| `GET` | `/api/backup/export` | Download the full database as a JSON backup file (`Content-Disposition: attachment`) |
+| `POST` | `/api/backup/inspect` | Inspect a backup payload; reports existing vs incoming data and duplicate detection |
+| `POST` | `/api/backup/import` | Restore a backup (`wipe` replaces all data; `merge` preserves non-duplicate data) |
 
 ---
 
